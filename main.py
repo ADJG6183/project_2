@@ -5,24 +5,6 @@ import tempfile
 from flask import Flask, request, send_file, jsonify
 from google.cloud import storage
 import google.generativeai as genai
-import pytest
-from main import app
-
-@pytest.fixture
-def client():
-    app.config["TESTING"] = True
-    with app.test_client() as client:
-        yield client
-
-def test_background_color_blue(client):
-    os.environ["BACKGROUND_COLOR"] = "blue"
-    response = client.get("/")
-    assert b'background-color: blue' in response.data
-
-def test_background_color_green(client):
-    os.environ["BACKGROUND_COLOR"] = "green"
-    response = client.get("/")
-    assert b'background-color: green' in response.data
 
 # Load API key from environment variable (do not hardcode)
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")  # Ensure this is set in your environment
